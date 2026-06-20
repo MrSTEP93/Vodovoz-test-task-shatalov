@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Vodovoz.Data\Vodovoz.Data.csproj" />
     <ProjectReference Include="..\Vodovoz.Domain\Vodovoz.Domain.csproj" />
     <ProjectReference Include="..\Vodovoz.Services\Vodovoz.Services.csproj" />
   </ItemGroup>

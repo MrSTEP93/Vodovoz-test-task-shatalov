@@ -3,8 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Local settings
+# Local and tests settings 
 appsettings.[Ll]ocal.json
+appsettings.[Tt]est.json
 
 # User-specific files
 *.rsuser
