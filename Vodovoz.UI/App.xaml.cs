@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Windows;
 using Vodovoz.Data.Config;
+using Vodovoz.Data.Services;
 
 namespace Vodovoz.UI
 {
@@ -35,7 +36,7 @@ namespace Vodovoz.UI
                         ConnectionString = connectionString
                     };
                     services.AddSingleton(dbConfig);
-                    //services.AddSingleton<ISessionFactoryProvider, SessionFactoryProvider>();
+                    services.AddSingleton<ISessionFactoryProvider, SessionFactoryProvider>();
 
                     services.AddTransient<MainWindow>();
                 })

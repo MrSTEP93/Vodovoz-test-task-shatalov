@@ -15,7 +15,9 @@ namespace Vodovoz.Data.Mappings
         {
             Table("Employees");
             Id(x => x.Id).GeneratedBy.Identity();
-            Map(x => x.FullName).Length(255).Not.Nullable();
+            Map(x => x.Name).Length(50).Not.Nullable();
+            Map(x => x.Surname).Length(50).Not.Nullable();
+            Map(x => x.Patronymic).Length(50);
             Map(x => x.Position).CustomType<int>().Not.Nullable();
             Map(x => x.BirthDate).Not.Nullable();
         }
