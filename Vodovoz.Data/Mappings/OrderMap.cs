@@ -17,8 +17,8 @@ namespace Vodovoz.Data.Mappings
             Id(x => x.Id).GeneratedBy.Identity();
             Map(x => x.Date).Not.Nullable();
             Map(x => x.Sum).Precision(18).Scale(2).Not.Nullable();
-            References(x => x.Employee).Column("EmployeeId").Not.Nullable();
-            References(x => x.Client).Column("ClientId").Not.Nullable();
+            References(x => x.Employee).Column("EmployeeId").Not.Nullable().Not.LazyLoad();
+            References(x => x.Client).Column("ClientId").Not.Nullable().Not.LazyLoad();
         }
     }
 }
