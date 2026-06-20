@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using Vodovoz.Data.Config;
 
 namespace Vodovoz.UI
 {
@@ -26,7 +27,16 @@ namespace Vodovoz.UI
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    
+                    var connectionString = context.Configuration.GetConnectionString("DefaultConnection")
+                        ?? throw new InvalidOperationException("Строка подключения 'DefaultConnection' не найдена в конфигурации.");
+
+                    var dbConfig = new DatabaseConfig
+                    {
+                        ConnectionString = connectionString
+                    };
+                    services.AddSingleton(dbConfig);
+                    //services.AddSingleton<ISessionFactoryProvider, SessionFactoryProvider>();
+
                     services.AddTransient<MainWindow>();
                 })
                 .Build();
