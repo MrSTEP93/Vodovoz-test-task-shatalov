@@ -32,8 +32,7 @@ namespace Vodovoz.Data.Infrastructure
             _sessionFactory = Fluently.Configure()
                 .Database(MySQLConfiguration.Standard.ConnectionString(config.ConnectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<EmployeeMap>())
-                
-                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, false))
+                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true))
                 .BuildSessionFactory();
         }
 
