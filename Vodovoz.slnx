@@ -2,6 +2,8 @@
   <Project Path="Vodovoz.Data/Vodovoz.Data.csproj" />
   <Project Path="Vodovoz.Domain/Vodovoz.Domain.csproj" />
   <Project Path="Vodovoz.Services/Vodovoz.Services.csproj" />
-  <Project Path="Vodovoz.Tests/Vodovoz.Tests.csproj" Id="04aa41c9-d55b-4a9a-ae5b-621db1941f2d" />
+  <Project Path="Vodovoz.Tests/Vodovoz.Tests.csproj" Id="04aa41c9-d55b-4a9a-ae5b-621db1941f2d">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
   <Project Path="Vodovoz.UI/Vodovoz.UI.csproj" />
 </Solution>
