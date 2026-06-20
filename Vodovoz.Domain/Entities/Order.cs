@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vodovoz.Domain
+namespace Vodovoz.Domain.Entities
 {
     /// <summary>
     /// Модель данных, представляющая заказ.
@@ -18,6 +18,6 @@ namespace Vodovoz.Domain
 
         public virtual Employee Employee { get; set; } = null!;
 
-        public virtual Counterparty Counterparty { get; set; } = null!;
+        public virtual Client Client { get; set; } = null!;
     }
 }

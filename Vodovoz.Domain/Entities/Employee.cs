@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Vodovoz.Domain.Enums;
 
-namespace Vodovoz.Domain
+namespace Vodovoz.Domain.Entities
 {
     /// <summary>
     /// Модель сотрудника организации

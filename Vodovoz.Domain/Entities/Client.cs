@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vodovoz.Domain
+namespace Vodovoz.Domain.Entities
 {
     /// <summary>
     /// Модель данных, представляющая клиента (контрагента).
     /// Каждый контрагент привязан к одному сотруднику - куратору.
     /// </summary>
-    public class Counterparty
+    public class Client
     {
         public virtual int Id { get; set; }
 
