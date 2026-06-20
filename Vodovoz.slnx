@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Vodovoz.Data/Vodovoz.Data.csproj" />
+  <Project Path="Vodovoz.Domain/Vodovoz.Domain.csproj" />
+  <Project Path="Vodovoz.Services/Vodovoz.Services.csproj" />
+  <Project Path="Vodovoz.UI/Vodovoz.UI.csproj" />
+</Solution>
