@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using MySqlConnector;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using System;
@@ -7,8 +8,9 @@ using System.Collections.Generic;
 using System.Text;
 using Vodovoz.Data.Config;
 using Vodovoz.Data.Mappings;
+using Vodovoz.Data.Services;
 
-namespace Vodovoz.Data.Services
+namespace Vodovoz.Data.Infrastructure
 {
     /// <summary>
     /// Реализация провайдера фабрики сессий.
@@ -30,6 +32,7 @@ namespace Vodovoz.Data.Services
             _sessionFactory = Fluently.Configure()
                 .Database(MySQLConfiguration.Standard.ConnectionString(config.ConnectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<EmployeeMap>())
+                
                 .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, false))
                 .BuildSessionFactory();
         }

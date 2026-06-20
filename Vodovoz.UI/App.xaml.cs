@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Windows;
 using Vodovoz.Data.Config;
+using Vodovoz.Data.Infrastructure;
 using Vodovoz.Data.Services;
 
 namespace Vodovoz.UI
@@ -47,6 +48,7 @@ namespace Vodovoz.UI
         {
             await _host.StartAsync();
 
+            _host.Services.GetRequiredService<ISessionFactoryProvider>();
             var mainWindow = _host.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
 
