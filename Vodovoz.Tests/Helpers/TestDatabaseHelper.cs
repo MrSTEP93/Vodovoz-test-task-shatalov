@@ -55,8 +55,8 @@ namespace Vodovoz.Tests.Helpers
             using var tx = session.BeginTransaction();
 
             session.CreateSQLQuery("DELETE FROM Orders").ExecuteUpdate();
-            //session.CreateSQLQuery("DELETE FROM Clients").ExecuteUpdate();
-            //session.CreateSQLQuery("DELETE FROM Employees").ExecuteUpdate();
+            session.CreateSQLQuery("DELETE FROM Clients").ExecuteUpdate();
+            session.CreateSQLQuery("DELETE FROM Employees").ExecuteUpdate();
 
             tx.Commit();
         }
