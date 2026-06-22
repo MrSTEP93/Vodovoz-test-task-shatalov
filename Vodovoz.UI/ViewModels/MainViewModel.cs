@@ -19,19 +19,16 @@ namespace Vodovoz.UI.ViewModels
         public ICommand ShowClientsCommand { get; }
         public ICommand ShowOrdersCommand { get; }
 
-        public MainViewModel()
+        public MainViewModel(
+            EmployeesViewModel employeesVm,
+            ClientsViewModel counterpartiesVm,
+            OrdersViewModel ordersVm)
         {
-            // Пока используем строки-заглушки. Позже заменим их на реальные ViewModel
-            ShowEmployeesCommand = new RelayCommand(() =>
-                CurrentViewModel = "Здесь будет экран Сотрудников");
+            ShowEmployeesCommand = new RelayCommand(() => CurrentViewModel = employeesVm);
+            ShowClientsCommand = new RelayCommand(() => CurrentViewModel = counterpartiesVm);
+            ShowOrdersCommand = new RelayCommand(() => CurrentViewModel = ordersVm);
 
-            ShowClientsCommand = new RelayCommand(() =>
-                CurrentViewModel = "Здесь будет экран Контрагентов");
-
-            ShowOrdersCommand = new RelayCommand(() =>
-                CurrentViewModel = "Здесь будет экран Заказов");
-
-
+            _currentViewModel = employeesVm;
         }
     }
 }

@@ -52,10 +52,10 @@ namespace Vodovoz.UI
                     services.AddTransient<IOrderService, OrderService>();
 
                     services.AddTransient<MainViewModel>();
+                    services.AddTransient<EmployeesViewModel>();
+                    services.AddTransient<ClientsViewModel>();
+                    services.AddTransient<OrdersViewModel>();
                     services.AddTransient<MainWindow>();
-                    //services.AddTransient<EmployeesViewModel>();
-                    //services.AddTransient<ClientsViewModel>();
-                    //services.AddTransient<OrdersViewModel>();
                 })
                 .Build();
         }
