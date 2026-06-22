@@ -1,4 +1,5 @@
-﻿using NHibernate.Transform;
+﻿using MySqlX.XDevAPI;
+using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +23,17 @@ namespace Vodovoz.Data.Repositories
             return session.QueryOver<Order>(() => alias)
                 .JoinAlias(() => alias.Employee, () => alias!.Employee)
                 .JoinAlias(() => alias.Client, () => alias!.Client)
+                .List<Order>();
+        }
+
+        public IEnumerable<Order> GetByClientId(int id)
+        {
+            using var session = SessionProvider.OpenSession();
+            Order alias = null!;
+            return session.QueryOver<Order>(() => alias)
+                .JoinAlias(() => alias.Employee, () => alias!.Employee)
+                .JoinAlias(() => alias.Client, () => alias!.Client)
+                .Where(o => o.Client.Id == id)
                 .List<Order>();
         }
     }

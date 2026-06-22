@@ -42,7 +42,7 @@ namespace Vodovoz.Services
         }
 
         /// <summary>
-        /// Валидация данных клиента перед сохранением.
+        /// Валидация данных клиента перед сохранением клиента.
         /// </summary>
         private void ValidateBeforeSave(Client client)
         {
@@ -55,7 +55,7 @@ namespace Vodovoz.Services
             if (string.IsNullOrWhiteSpace(client.Inn))
                 throw new BusinessRuleException("ИНН клиента обязателен для заполнения.");
 
-            // Проверка длины ИНН (для юр. лиц 10, для ИП/физ. лиц 12)
+            // Проверка длины ИНН (для ЮЛ 10 цифр, для ИП/ФЛ 12)
             if (client.Inn.Length != 10 && client.Inn.Length != 12)
                 throw new BusinessRuleException("ИНН должен состоять из 10 или 12 цифр.");
 
@@ -65,12 +65,10 @@ namespace Vodovoz.Services
 
         /// <summary>
         /// Проверка бизнес-правил перед удалением клиента.
-        /// Запрещает удаление, если у клиента есть активные заказы.
+        /// Запрещает удаление, если у клиента есть заказы.
         /// </summary>
         private void ValidateBeforeDelete(Client client)
         {
-            // Проверяем наличие заказов через репозиторий заказов
-            // Важно: здесь нужен метод GetByClientId в IOrderRepository
             bool hasOrders = _orderRepository.GetByClientId(client.Id).Any();
 
             if (hasOrders)
