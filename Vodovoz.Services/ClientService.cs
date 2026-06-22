@@ -7,13 +7,17 @@ using Vodovoz.Domain.Interfaces;
 
 namespace Vodovoz.Services
 {
-    public class ClientService(
-        IClientRepository clientRepository, 
-        IOrderRepository orderRepository) : IClientService
+    public class ClientService : IClientService
     {
-        private readonly IClientRepository _clientRepository = clientRepository;
-        private readonly IOrderRepository _orderRepository = orderRepository;
+        private readonly IClientRepository _clientRepository;
+        private readonly IOrderRepository _orderRepository;
 
+        // Классический конструктор с явным присваиванием полей
+        public ClientService(IClientRepository clientRepository, IOrderRepository orderRepository)
+        {
+            _clientRepository = clientRepository ?? throw new ArgumentNullException(nameof(clientRepository));
+            _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
+        }
         public Client? GetById(int id)
         {
             return _clientRepository.GetById(id);

@@ -17,15 +17,17 @@ namespace Vodovoz.Tests.Services
         {
             private Mock<IOrderRepository> _orderRepositoryMock = null!;
             private OrderService _orderService = null!;
+            private Order _testOrder = null!;
 
             [SetUp]
             public void SetUp()
             {
                 _orderRepositoryMock = new Mock<IOrderRepository>();
                 _orderService = new OrderService(_orderRepositoryMock.Object);
+                _testOrder = CreateTestOrder();
             }
 
-            private static Order CreateValidOrder()
+            private static Order CreateTestOrder()
             {
                 return new Order
                 {
@@ -52,11 +54,8 @@ namespace Vodovoz.Tests.Services
             [Test]
             public void Save_ValidOrder_CallsRepositorySave()
             {
-                var order = CreateValidOrder();
-
-                _orderService.Save(order);
-
-                _orderRepositoryMock.Verify(r => r.Save(order), Times.Once);
+                _orderService.Save(_testOrder);
+                _orderRepositoryMock.Verify(r => r.Save(_testOrder), Times.Once);
             }
 
             [Test]
@@ -68,86 +67,68 @@ namespace Vodovoz.Tests.Services
             [Test]
             public void Save_ZeroSum_ThrowsBusinessRuleException()
             {
-                var order = CreateValidOrder();
-                order.Sum = 0;
-
-                Assert.Throws<BusinessRuleException>(() => _orderService.Save(order));
+                _testOrder.Sum = 0;
+                Assert.Throws<BusinessRuleException>(() => _orderService.Save(_testOrder));
             }
 
             [Test]
             public void Save_NegativeSum_ThrowsBusinessRuleException()
             {
-                var order = CreateValidOrder();
-                order.Sum = -100;
-
-                Assert.Throws<BusinessRuleException>(() => _orderService.Save(order));
+                _testOrder.Sum = -100;
+                Assert.Throws<BusinessRuleException>(() => _orderService.Save(_testOrder));
             }
 
             [Test]
             public void Save_NullEmployee_ThrowsBusinessRuleException()
             {
-                var order = CreateValidOrder();
-                order.Employee = null!;
-
-                Assert.Throws<BusinessRuleException>(() => _orderService.Save(order));
+                _testOrder.Employee = null!;
+                Assert.Throws<BusinessRuleException>(() => _orderService.Save(_testOrder));
             }
 
             [Test]
             public void Save_NullClient_ThrowsBusinessRuleException()
             {
-                var order = CreateValidOrder();
-                order.Client = null!;
-
-                Assert.Throws<BusinessRuleException>(() => _orderService.Save(order));
+                _testOrder.Client = null!;
+                Assert.Throws<BusinessRuleException>(() => _orderService.Save(_testOrder));
             }
 
             [Test]
             public void Save_InvalidOrder_DoesNotCallRepository()
             {
-                var order = CreateValidOrder();
-                order.Sum = -1;
-
-                Assert.Throws<BusinessRuleException>(() => _orderService.Save(order));
-
+                _testOrder.Sum = -1;
+                Assert.Throws<BusinessRuleException>(() => _orderService.Save(_testOrder));
                 _orderRepositoryMock.Verify(r => r.Save(It.IsAny<Order>()), Times.Never);
             }
 
             [Test]
             public void Delete_ExistingOrder_CallsRepositoryDelete()
             {
-                var order = CreateValidOrder();
-                order.Id = 1;
-                _orderRepositoryMock.Setup(r => r.GetById(1)).Returns(order);
-
+                _testOrder.Id = 1;
+                _orderRepositoryMock.Setup(r => r.GetById(1)).Returns(_testOrder);
                 _orderService.Delete(1);
-
-                _orderRepositoryMock.Verify(r => r.Delete(order), Times.Once);
+                _orderRepositoryMock.Verify(r => r.Delete(_testOrder), Times.Once);
             }
 
             [Test]
             public void Delete_NonExistingOrder_ThrowsInvalidOperationException()
             {
                 _orderRepositoryMock.Setup(r => r.GetById(999)).Returns((Order?)null);
-
                 Assert.Throws<InvalidOperationException>(() => _orderService.Delete(999));
             }
 
             [Test]
             public void GetById_ExistingId_ReturnsOrder()
             {
-                var expected = CreateValidOrder();
-                _orderRepositoryMock.Setup(r => r.GetById(1)).Returns(expected);
+                _orderRepositoryMock.Setup(r => r.GetById(1)).Returns(_testOrder);
 
                 var result = _orderService.GetById(1);
-
-                Assert.That(result, Is.EqualTo(expected));
+                Assert.That(result, Is.EqualTo(_testOrder));
             }
 
             [Test]
             public void GetAll_CallsRepositoryGetAll()
             {
                 _orderService.GetAll();
-
                 _orderRepositoryMock.Verify(r => r.GetAll(), Times.Once);
             }
         }
