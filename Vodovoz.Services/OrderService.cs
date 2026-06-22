@@ -35,7 +35,7 @@ namespace Vodovoz.Services
         }
 
         /// <summary>
-        /// Проверка бизнес-правил и валидация данных заказа.
+        /// Валидация данных (проверка бизнес-правил) при сохранении заказа.
         /// </summary>
         private static void ValidateBeforeSave(Order order)
         {
