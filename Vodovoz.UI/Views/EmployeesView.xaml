@@ -6,5 +6,27 @@
              xmlns:local="clr-namespace:Vodovoz.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TextBlock Text="Экран сотрудников" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Список сотрудников" FontSize="24" FontWeight="Bold"
+                   Margin="0,0,0,15" Grid.Row="0"/>
+
+        <DataGrid ItemsSource="{Binding Employees}" 
+                  AutoGenerateColumns="False" IsReadOnly="True" 
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  SelectionMode="Single" Grid.Row="1">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"/>
+                <DataGridTextColumn Header="Должность" Binding="{Binding Position}" Width="120"/>
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding BirthDate, StringFormat=dd.MM.yyyy}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>
