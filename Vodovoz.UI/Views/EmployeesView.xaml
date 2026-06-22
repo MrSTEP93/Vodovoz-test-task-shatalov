@@ -11,13 +11,22 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Список сотрудников" FontSize="24" FontWeight="Bold"
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,15">
+            <TextBlock Text="Список сотрудников" FontSize="24" FontWeight="Bold"
                    Margin="0,0,0,15" Grid.Row="0"/>
+            <Button Content="+ Добавить" 
+                Command="{Binding AddEmployeeCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"
+                HorizontalAlignment="Left"/>
+        </StackPanel>
 
         <DataGrid ItemsSource="{Binding Employees}" 
                   AutoGenerateColumns="False" IsReadOnly="True" 
                   CanUserAddRows="False" CanUserDeleteRows="False"
-                  SelectionMode="Single" Grid.Row="1">
+                  SelectionMode="Single" Grid.Row="1"
+                  SelectedItem="{Binding SelectedEmployee}">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
