@@ -30,7 +30,6 @@ namespace Vodovoz.Tests.Services
                 _orderRepositoryMock.Object);
 
             _testClient = CreateValidClient();
-            _clientService.Save(_testClient);
         }
 
         private static Client CreateValidClient()

@@ -12,12 +12,12 @@ namespace Vodovoz.Services
         private readonly IClientRepository _clientRepository;
         private readonly IOrderRepository _orderRepository;
 
-        // Классический конструктор с явным присваиванием полей
         public ClientService(IClientRepository clientRepository, IOrderRepository orderRepository)
         {
             _clientRepository = clientRepository ?? throw new ArgumentNullException(nameof(clientRepository));
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
         }
+
         public Client? GetById(int id)
         {
             return _clientRepository.GetById(id);
@@ -39,14 +39,14 @@ namespace Vodovoz.Services
             var client = _clientRepository.GetById(id);
 
             if (client == null)
-                throw new InvalidOperationException($"Клиент с ID {id} не найден.");
+                throw new InvalidOperationException($"Контрагент с ID {id} не найден.");
 
             ValidateBeforeDelete(client);
             _clientRepository.Delete(client);
         }
 
         /// <summary>
-        /// Валидация данных клиента перед сохранением клиента.
+        /// Валидация данных контрагента перед сохранением клиента.
         /// </summary>
         private void ValidateBeforeSave(Client client)
         {
@@ -57,14 +57,14 @@ namespace Vodovoz.Services
                 throw new BusinessRuleException("Наименование клиента обязательно для заполнения.");
 
             if (string.IsNullOrWhiteSpace(client.Inn))
-                throw new BusinessRuleException("ИНН клиента обязателен для заполнения.");
+                throw new BusinessRuleException("ИНН контрагента обязателен для заполнения");
 
             // Проверка длины ИНН (для ЮЛ 10 цифр, для ИП/ФЛ 12)
             if (client.Inn.Length != 10 && client.Inn.Length != 12)
                 throw new BusinessRuleException("ИНН должен состоять из 10 или 12 цифр.");
 
             if (client.Curator == null)
-                throw new BusinessRuleException("Необходимо выбрать куратора (сотрудника) для клиента.");
+                throw new BusinessRuleException("Необходимо выбрать куратора (сотрудника) для контрагента");
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Vodovoz.Services
 
             if (hasOrders)
                 throw new BusinessRuleException(
-                    $"Нельзя удалить клиента \"{client.Name}\", так как у него есть связанные заказы.");
+                    $"Нельзя удалить клиента \"{client.Name}\", т.к. у него есть связанные заказы.");
         }
     }
 }
