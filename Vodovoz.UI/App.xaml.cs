@@ -6,7 +6,10 @@ using System.Data;
 using System.Windows;
 using Vodovoz.Data.Config;
 using Vodovoz.Data.Infrastructure;
+using Vodovoz.Data.Repositories;
 using Vodovoz.Data.Services;
+using Vodovoz.Domain.Interfaces;
+using Vodovoz.Services;
 
 namespace Vodovoz.UI
 {
@@ -39,7 +42,18 @@ namespace Vodovoz.UI
                     services.AddSingleton(dbConfig);
                     services.AddSingleton<ISessionFactoryProvider, SessionFactoryProvider>();
 
+                    services.AddTransient<IClientRepository, ClientRepository>();
+                    services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+                    services.AddTransient<IOrderRepository, OrderRepository>();
+
+                    services.AddTransient<IClientService, ClientService>();
+                    services.AddTransient<IEmployeeService, EmployeeService>();
+                    services.AddTransient<IOrderService, OrderService>();
+
                     services.AddTransient<MainWindow>();
+                    //services.AddTransient<EmployeesViewModel>();
+                    //services.AddTransient<ClientsViewModel>();
+                    //services.AddTransient<OrdersViewModel>();
                 })
                 .Build();
         }

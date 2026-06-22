@@ -11,9 +11,9 @@ namespace Vodovoz.Data.Repositories
     /// <summary>
     /// Репозиторий для работы с контрагентами
     /// </summary>
-    public class CounterpartyRepository : BaseRepository<Client>, IClientRepository
+    public class ClientRepository : BaseRepository<Client>, IClientRepository
     {
-        public CounterpartyRepository(ISessionFactoryProvider sessionProvider) : base(sessionProvider) { }
+        public ClientRepository(ISessionFactoryProvider sessionProvider) : base(sessionProvider) { }
 
         public override IEnumerable<Client> GetAll()
         {
