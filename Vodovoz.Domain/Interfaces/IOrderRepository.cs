@@ -9,6 +9,9 @@ namespace Vodovoz.Domain.Interfaces
     /// Интерфейс репозитория для работы с заказами.
     /// Наследует общие CRUD-операции от IBaseRepository
     /// </summary>
-    public interface IOrderRepository : IBaseRepository<Order> { }
+    public interface IOrderRepository : IBaseRepository<Order>
+    {
+        IEnumerable<Order> GetByClientId(int id);
+    }
 
 }

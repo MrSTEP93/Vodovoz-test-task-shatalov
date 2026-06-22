@@ -23,5 +23,15 @@ namespace Vodovoz.Data.Repositories
                 .JoinAlias(() => alias.Curator, () => alias!.Curator)
                 .List<Client>();
         }
+
+        public IEnumerable<Client> GetByCuratorId(int curatorId)
+        {
+            using var session = SessionProvider.OpenSession();
+            Client alias = null!;
+            return session.QueryOver<Client>(() => alias)
+                .JoinAlias(() => alias.Curator, () => alias!.Curator)
+                .Where(() => alias.Curator.Id == curatorId)
+                .List<Client>();
+        }
     }
 }
