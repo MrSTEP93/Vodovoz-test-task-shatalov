@@ -10,6 +10,7 @@ using Vodovoz.Data.Repositories;
 using Vodovoz.Data.Services;
 using Vodovoz.Domain.Interfaces;
 using Vodovoz.Services;
+using Vodovoz.UI.ViewModels;
 
 namespace Vodovoz.UI
 {
@@ -50,6 +51,7 @@ namespace Vodovoz.UI
                     services.AddTransient<IEmployeeService, EmployeeService>();
                     services.AddTransient<IOrderService, OrderService>();
 
+                    services.AddTransient<MainViewModel>();
                     services.AddTransient<MainWindow>();
                     //services.AddTransient<EmployeesViewModel>();
                     //services.AddTransient<ClientsViewModel>();

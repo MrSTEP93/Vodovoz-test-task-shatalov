@@ -16,7 +16,7 @@
                 <Button Content="Сотрудники" Command="{Binding ShowEmployeesCommand}"
                         Padding="10" Margin="0,5" HorizontalContentAlignment="Left"
                         Background="#34495e" Foreground="White" BorderThickness="0"/>
-                <Button Content="Контрагенты" Command="{Binding ShowCounterpartiesCommand}"
+                <Button Content="Контрагенты" Command="{Binding ShowClientsCommand}"
                         Padding="10" Margin="0,5" HorizontalContentAlignment="Left"
                         Background="#34495e" Foreground="White" BorderThickness="0"/>
                 <Button Content="Заказы" Command="{Binding ShowOrdersCommand}"
