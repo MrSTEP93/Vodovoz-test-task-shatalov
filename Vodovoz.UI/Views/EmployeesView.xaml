@@ -11,21 +11,25 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,15">
             <TextBlock Text="Список сотрудников" FontSize="24" FontWeight="Bold"
-                   Margin="0,0,0,15" Grid.Row="0"/>
+                   Margin="0,0,0,15"/>
             <Button Content="Добавить" 
                 Command="{Binding AddEmployeeCommand}" 
                 Width="120" 
                 Margin="20,0,0,0"
-                Padding="8,4"
-                HorizontalAlignment="Left"/>
+                Padding="8,4"/>
             <Button Content="Изменить" 
                 Command="{Binding EditEmployeeCommand}" 
                 Width="120" 
                 Margin="20,0,0,0"
-                Padding="8,4"
-                HorizontalAlignment="Left"/>
+                Padding="8,4"/>
+            <Button Content="Удалить" 
+                Command="{Binding DeleteEmployeeCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>
         </StackPanel>
 
         <DataGrid ItemsSource="{Binding Employees}" 

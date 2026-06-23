@@ -8,53 +8,61 @@ using Vodovoz.Domain.Entities;
 using Vodovoz.Domain.Enums;
 using Vodovoz.Domain.Exceptions;
 using Vodovoz.Domain.Interfaces;
+using Vodovoz.Services;
 using Vodovoz.UI.Common;
 
 namespace Vodovoz.UI.ViewModels
 {
-    public class EmployeeEditViewModel : ViewModelBase
+    public class ClientEditViewModel : ViewModelBase
     {
+        private readonly IClientService _clientService;
         private readonly IEmployeeService _employeeService;
-        private readonly Employee _employee = null!;
+        private readonly Client _client = null!;
         private bool _isEditMode;
-        
-        public string Surname { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string Patronymic { get; set; } = string.Empty;
-        public Position Position { get; set; }
-        public DateTime BirthDate { get; set; } = DateTime.Today;
 
-        public string Title => _isEditMode ? "Редактирование сотрудника" : "Добавление сотрудника";
+        public IEnumerable<Employee> Employees { get; }
+
+        public string Name { get; set; } = string.Empty;
+        public string Inn { get; set; } = string.Empty;
+        public Employee Curator { get; set; } = null!;
+
+        public int CuratorId { get; set; } = 0;
+
+        public string Title => _isEditMode ? "Редактирование контрагента" : "Добавление контрагента";
 
         public ICommand SaveCommand { get; private set; } = null!;
         public ICommand CancelCommand { get; private set; } = null!;
 
-        public EmployeeEditViewModel(IEmployeeService employeeService, Employee employee)
+        public ClientEditViewModel(IClientService clientService, IEmployeeService employeeService)
         {
+            _clientService = clientService ?? throw new ArgumentNullException(nameof(clientService));
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
-            _employee = employee ?? throw new ArgumentNullException(nameof(employee));
-            _isEditMode = true;
+            _isEditMode = false;
 
-            Surname = employee.Surname;
-            Name = employee.Name;
-            Patronymic = employee.Patronymic;
-            Position = employee.Position;
-            BirthDate = employee.BirthDate;
-
+            Employees = _employeeService.GetAll();
             InitializeCommands();
         }
 
-        public EmployeeEditViewModel(IEmployeeService employeeService)
+        public ClientEditViewModel(IClientService clientService, IEmployeeService employeeService, Client client)
         {
+            _clientService = clientService ?? throw new ArgumentNullException(nameof(clientService));
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
-            _isEditMode = false;
+            _client = client;
+            _isEditMode = true;
+
+            Name = client.Name;
+            Inn = client.Inn;
+            Curator = client.Curator;
+            CuratorId = client.Curator.Id;
+
+            Employees = _employeeService.GetAll();
             InitializeCommands();
         }
 
         private void InitializeCommands()
         {
             SaveCommand = new RelayCommand(Save, () =>
-                !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Name));
+                !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Inn));
 
             CancelCommand = new RelayCommand(Cancel);
         }
@@ -65,26 +73,20 @@ namespace Vodovoz.UI.ViewModels
             {
                 if (_isEditMode)
                 {
-                    _employee.Surname = Surname;
-                    _employee.Name = Name;
-                    _employee.Patronymic = Patronymic;
-                    _employee.Position = Position;
-                    _employee.BirthDate = BirthDate;
-
-                    _employeeService.Save(_employee);
+                    _client.Name = Name;
+                    _client.Inn = Inn;
+                    _client.Curator = Employees.FirstOrDefault(e => e.Id == CuratorId)!;
+                    _clientService.Save(_client);
                 }
                 else
                 {
-                    var newEmployee = new Employee
+                    var newClient = new Client
                     {
-                        Surname = Surname,
                         Name = Name,
-                        Patronymic = Patronymic,
-                        Position = Position,
-                        BirthDate = BirthDate
+                        Inn = Inn,
+                        Curator = Employees.FirstOrDefault(e => e.Id == CuratorId)!
                     };
-
-                    _employeeService.Save(newEmployee);
+                    _clientService.Save(newClient);
                 }
                 CloseWindow(true);
             }

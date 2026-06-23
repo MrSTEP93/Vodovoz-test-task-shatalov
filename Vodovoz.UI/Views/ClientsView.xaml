@@ -11,19 +11,38 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Text="Список клиентов" FontSize="24" FontWeight="Bold" 
-                   Margin="0,0,0,15" Grid.Row="0"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,15">
+            <TextBlock Text="Список клиентов" FontSize="24" FontWeight="Bold" 
+                   Margin="0,0,0,15"/>
+            <Button Content="Добавить" 
+                Command="{Binding AddClientCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>
+            <Button Content="Изменить" 
+                Command="{Binding EditClientCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>    
+            <Button Content="Удалить" 
+                Command="{Binding DeleteClientCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>    
+        </StackPanel>
 
         <DataGrid ItemsSource="{Binding Clients}"
                   AutoGenerateColumns="False" IsReadOnly="True"
                   CanUserAddRows="False" CanUserDeleteRows="False"
-                  SelectionMode="Single" Grid.Row="1">
+                  SelectionMode="Single" Grid.Row="1"
+                  SelectedItem="{Binding SelectedClient}">
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="ИНН" Binding="{Binding Inn}" Width="150"/>
-                <DataGridTextColumn Header="Куратор" Binding="{Binding Curator}" Width="*"/>
+                <DataGridTextColumn Header="Куратор" Binding="{Binding Curator.Surname}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
