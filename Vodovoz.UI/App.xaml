@@ -5,16 +5,14 @@
              xmlns:view="clr-namespace:Vodovoz.UI.Views"
              xmlns:local="clr-namespace:Vodovoz.UI">
     <Application.Resources>
-        <ResourceDictionary>
-            <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
-                <view:EmployeesView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
-                <view:ClientsView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
-                <view:OrdersView />
-            </DataTemplate>
-        </ResourceDictionary>
+        <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
+            <view:EmployeesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
+            <view:ClientsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
+            <view:OrdersView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

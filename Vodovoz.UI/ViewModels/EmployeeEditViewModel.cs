@@ -29,15 +29,14 @@ namespace Vodovoz.UI.ViewModels
         public ICommand SaveCommand { get; private set; } = null!;
         public ICommand CancelCommand { get; private set; } = null!;
 
-        public IEnumerable<Position> Positions => Enum.GetValues(typeof(Position)).Cast<Position>();
+        //public IEnumerable<Position> Positions => Enum.GetValues(typeof(Position)).Cast<Position>();
 
-        public EmployeeEditViewModel(Employee employee, IEmployeeService employeeService)
+        public EmployeeEditViewModel(IEmployeeService employeeService, Employee employee)
         {
             _employee = employee ?? throw new ArgumentNullException(nameof(employee));
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             _isEditMode = true;
 
-            // Заполняем поля из сущности
             Surname = employee.Surname;
             Name = employee.Name;
             Patronymic = employee.Patronymic;
@@ -59,7 +58,7 @@ namespace Vodovoz.UI.ViewModels
             SaveCommand = new RelayCommand(Save, () =>
                 !string.IsNullOrWhiteSpace(Surname) && !string.IsNullOrWhiteSpace(Name));
 
-            CancelCommand = new RelayCommand(CloseWindow);
+            CancelCommand = new RelayCommand(Cancel);
         }
 
         private void Save()
@@ -89,8 +88,7 @@ namespace Vodovoz.UI.ViewModels
 
                     _employeeService.Save(newEmployee);
                 }
-
-                CloseWindow();
+                CloseWindow(true);
             }
             catch (BusinessRuleException ex)
             {
@@ -104,13 +102,18 @@ namespace Vodovoz.UI.ViewModels
             }
         }
 
-        private void CloseWindow()
+        private void Cancel()
+        {
+            CloseWindow(false);
+        }
+
+        private void CloseWindow(bool dialogResult)
         {
             foreach (var window in Application.Current.Windows)
             {
                 if (window is Window w && w.DataContext == this)
                 {
-                    w.DialogResult = true;
+                    w.DialogResult = dialogResult;
                     w.Close();
                     break;
                 }

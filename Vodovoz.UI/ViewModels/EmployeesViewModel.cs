@@ -31,10 +31,13 @@ namespace Vodovoz.UI.ViewModels
 
         public ICommand AddEmployeeCommand { get; private set; }
 
+        public ICommand EditEmployeeCommand { get; private set; }
+
         public EmployeesViewModel(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
             AddEmployeeCommand = new RelayCommand(OpenAddEmployeeWindow);
+            EditEmployeeCommand = new RelayCommand(OpenEditEmployeeWindow, () => SelectedEmployee != null);
             LoadEmployees();
         }
 
@@ -47,6 +50,24 @@ namespace Vodovoz.UI.ViewModels
         private void OpenAddEmployeeWindow()
         {
             var editVm = new EmployeeEditViewModel(_employeeService);
+
+            var window = new EmployeeEditWindow
+            {
+                DataContext = editVm,
+                Owner = Application.Current.MainWindow
+            };
+
+            var result = window.ShowDialog();
+
+            if (result == true)
+            {
+                LoadEmployees();
+            }
+        }
+
+        private void OpenEditEmployeeWindow()
+        {
+            var editVm = new EmployeeEditViewModel(_employeeService, SelectedEmployee);
 
             var window = new EmployeeEditWindow
             {
