@@ -1,0 +1,85 @@
+﻿<Window x:Class="Vodovoz.UI.Views.EmployeeEditWindow"
+        xmlns:enums="clr-namespace:Vodovoz.Domain.Enums;assembly=Vodovoz.Domain"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Title}" 
+        WindowStartupLocation="CenterOwner" 
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+    
+    <Window.Resources>
+        <ObjectDataProvider x:Key="PositionEnumProvider"
+                        MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Position"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 0: Фамилия Label -->
+            <RowDefinition Height="Auto"/>
+            <!-- 1: Фамилия TextBox -->
+            <RowDefinition Height="Auto"/>
+            <!-- 2: Имя Label -->
+            <RowDefinition Height="Auto"/>
+            <!-- 3: Имя TextBox -->
+            <RowDefinition Height="Auto"/>
+            <!-- 4: Отчество Label -->
+            <RowDefinition Height="Auto"/>
+            <!-- 5: Отчество TextBox -->
+            <RowDefinition Height="Auto"/>
+            <!-- 6: Должность Label -->
+            <RowDefinition Height="Auto"/>
+            <!-- 7: Должность ComboBox -->
+            <RowDefinition Height="Auto"/>
+            <!-- 8: Дата рождения Label -->
+            <RowDefinition Height="Auto"/>
+            <!-- 9: Дата рождения DatePicker -->
+            <RowDefinition Height="*"/>
+            <!-- 10: Пустое пространство -->
+            <RowDefinition Height="Auto"/>
+            <!-- 11: Кнопки -->
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Фамилия *" Grid.Row="0" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="1" Margin="0,0,0,15"/>
+
+        <TextBlock Text="Имя *" Grid.Row="2" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="3" Margin="0,0,0,15"/>
+
+        <TextBlock Text="Отчество" Grid.Row="4" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="5" Margin="0,0,0,15"/>
+        
+        <TextBlock Text="Должность" Grid.Row="6" Margin="0,0,0,5"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource PositionEnumProvider}}"
+          SelectedItem="{Binding Position}"
+          Grid.Row="7" 
+          Margin="0,0,0,15"/>
+
+        <TextBlock Text="Дата рождения" Grid.Row="8" Margin="0,0,0,5"/>
+        <DatePicker SelectedDate="{Binding BirthDate}" 
+                    Grid.Row="9" Margin="0,0,0,20"/>
+        
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Grid.Row="11">
+            <Button Content="Сохранить" 
+                    Command="{Binding SaveCommand}" 
+                    Width="100" 
+                    Margin="0,0,10,0" 
+                    IsDefault="True"/>
+            <Button Content="Отмена" 
+                    Command="{Binding CancelCommand}" 
+                    Width="100" 
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

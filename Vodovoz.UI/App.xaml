@@ -1,8 +1,18 @@
 ﻿<Application x:Class="Vodovoz.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Vodovoz.UI.ViewModels"
+             xmlns:view="clr-namespace:Vodovoz.UI.Views"
              xmlns:local="clr-namespace:Vodovoz.UI">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
+            <view:EmployeesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ClientsViewModel}">
+            <view:ClientsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
+            <view:OrdersView />
+        </DataTemplate>
     </Application.Resources>
 </Application>
