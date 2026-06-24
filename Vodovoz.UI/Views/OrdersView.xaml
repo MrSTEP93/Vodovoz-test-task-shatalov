@@ -13,23 +13,23 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,15">
-            <TextBlock Text="Список клиентов" FontSize="24" FontWeight="Bold" 
-            Margin="0,0,0,15"/>
+            <TextBlock Text="Список заказов" FontSize="24" FontWeight="Bold" 
+                Margin="0,0,0,15"/>
             <Button Content="Добавить" 
-            Command="{Binding AddOrderCommand}" 
-            Width="120" 
-            Margin="20,0,0,0"
-            Padding="8,4"/>
+                Command="{Binding AddOrderCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>
             <Button Content="Изменить" 
-            Command="{Binding EditOrderCommand}" 
-            Width="120" 
-            Margin="20,0,0,0"
-            Padding="8,4"/>
+                Command="{Binding EditOrderCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>
             <Button Content="Удалить" 
-            Command="{Binding DeleteOrderCommand}" 
-            Width="120" 
-            Margin="20,0,0,0"
-            Padding="8,4"/>
+                Command="{Binding DeleteOrderCommand}" 
+                Width="120" 
+                Margin="20,0,0,0"
+                Padding="8,4"/>
         </StackPanel>
 
         <DataGrid ItemsSource="{Binding Orders}"
@@ -39,7 +39,7 @@
                   SelectedItem="{Binding SelectedOrder}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat=dd.MM.yyyy}" Width="*"/>
                 <DataGridTextColumn Header="Сумма" Binding="{Binding Sum}" Width="*"/>
                 <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee.Surname}" Width="*"/>
                 <DataGridTextColumn Header="Клиент" Binding="{Binding Client.Name}" Width="*"/>

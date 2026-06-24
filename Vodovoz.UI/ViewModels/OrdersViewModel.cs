@@ -94,7 +94,7 @@ namespace Vodovoz.UI.ViewModels
         private void DeleteOrder()
         {
             var result = MessageBox.Show(
-                $"Вы уверены, что хотите удалить заказ от \"{SelectedOrder.Date}\"?",
+                $"Вы уверены, что хотите удалить заказ от \"{SelectedOrder.Date:dd.MM.yyyy}\"?",
                 "Подтверждение удаления",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
