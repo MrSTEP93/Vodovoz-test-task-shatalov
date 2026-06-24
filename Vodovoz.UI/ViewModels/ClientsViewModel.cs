@@ -40,8 +40,8 @@ namespace Vodovoz.UI.ViewModels
             _clientService = clientService;
             _employeeService = employeeService;
             AddClientCommand = new RelayCommand(OpenAddClientWindow);
-            DeleteClientCommand = new RelayCommand(DeleteClient, () => SelectedClient != null);
             EditClientCommand = new RelayCommand(OpenEditClientWindow, () => SelectedClient != null);
+            DeleteClientCommand = new RelayCommand(DeleteClient, () => SelectedClient != null);
             LoadClients();
         }
 

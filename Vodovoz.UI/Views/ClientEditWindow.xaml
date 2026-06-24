@@ -29,27 +29,19 @@
             <!-- 7: Кнопки -->
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Дата заказа *" Grid.Row="0" Margin="0,0,0,5"/>
-        <DatePicker SelectedDate="{Binding Date}" 
+        <TextBlock Text="Название *" Grid.Row="0" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
          Grid.Row="1" Margin="0,0,0,15"/>
 
-        <TextBlock Text="Сумма заказа *" Grid.Row="2" Margin="0,0,0,5"/>
-        <TextBox Text="{Binding Sum, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBlock Text="ИНН *" Grid.Row="2" Margin="0,0,0,5"/>
+        <TextBox Text="{Binding Inn, UpdateSourceTrigger=PropertyChanged}" 
          Grid.Row="3" Margin="0,0,0,15"/>
 
-        <TextBlock Text="Сотрудник" Grid.Row="4" Margin="0,0,0,5"/>
+        <TextBlock Text="Куратор" Grid.Row="4" Margin="0,0,0,5"/>
         <ComboBox ItemsSource="{Binding Employees}"
-          SelectedValue="{Binding EmployeeId}"
+          SelectedValue="{Binding CuratorId}"
           SelectedValuePath="Id"
           DisplayMemberPath="Surname"
-          Grid.Row="5" 
-          Margin="0,0,0,15"/>
-
-        <TextBlock Text="Клиент" Grid.Row="4" Margin="0,0,0,5"/>
-        <ComboBox ItemsSource="{Binding Clients}"
-          SelectedValue="{Binding ClientId}"
-          SelectedValuePath="Id"
-          DisplayMemberPath="Name"
           Grid.Row="5" 
           Margin="0,0,0,15"/>
 

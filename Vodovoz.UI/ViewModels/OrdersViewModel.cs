@@ -104,7 +104,7 @@ namespace Vodovoz.UI.ViewModels
 
             try
             {
-                _clientService.Delete(SelectedOrder.Id);
+                _orderService.Delete(SelectedOrder.Id);
                 LoadOrders();
             }
             catch (BusinessRuleException ex)

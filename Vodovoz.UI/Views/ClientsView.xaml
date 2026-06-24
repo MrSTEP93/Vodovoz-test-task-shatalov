@@ -37,7 +37,6 @@
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   SelectionMode="Single" Grid.Row="1"
                   SelectedItem="{Binding SelectedClient}">
-            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="*"/>

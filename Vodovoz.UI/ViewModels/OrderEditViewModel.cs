@@ -55,6 +55,7 @@ namespace Vodovoz.UI.ViewModels
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
             _clientService = clientService ?? throw new ArgumentNullException(nameof(orderService));
+            _order = selectedOrder;
 
             _isEditMode = true;
 
@@ -73,7 +74,6 @@ namespace Vodovoz.UI.ViewModels
         private void InitializeCommands()
         {
             SaveCommand = new RelayCommand(Save, () => Date.HasValue && Sum.HasValue && Sum.Value > 0);
-
             CancelCommand = new RelayCommand(Cancel);
         }
 

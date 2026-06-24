@@ -35,13 +35,14 @@
         <DataGrid ItemsSource="{Binding Orders}"
                   AutoGenerateColumns="False" IsReadOnly="True"
                   CanUserAddRows="False" CanUserDeleteRows="False"
-                  SelectionMode="Single" Grid.Row="1">
+                  SelectionMode="Single" Grid.Row="1"
+                  SelectedItem="{Binding SelectedOrder}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding Date}" Width="*"/>
                 <DataGridTextColumn Header="Сумма" Binding="{Binding Sum}" Width="*"/>
-                <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee}" Width="*"/>
-                <DataGridTextColumn Header="Клиент" Binding="{Binding Client}" Width="*"/>
+                <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee.Surname}" Width="*"/>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.Name}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
