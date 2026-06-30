@@ -8,6 +8,7 @@ using Vodovoz.Data.Config;
 using Vodovoz.Data.Infrastructure;
 using Vodovoz.Data.Repositories;
 using Vodovoz.Data.Services;
+using Vodovoz.Domain.Exceptions;
 using Vodovoz.Domain.Interfaces;
 using Vodovoz.Services;
 using Vodovoz.UI.ViewModels;
@@ -64,10 +65,33 @@ namespace Vodovoz.UI
         {
             await _host.StartAsync();
 
-            _host.Services.GetRequiredService<ISessionFactoryProvider>();
-            var mainWindow = _host.Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
-
+            try
+            {
+                _host.Services.GetRequiredService<ISessionFactoryProvider>();
+                var mainWindow = _host.Services.GetRequiredService<MainWindow>();
+                mainWindow.Show();
+            }
+            catch (DBInitializationException ex)
+            {
+                MessageBox.Show(ex.DetailedMessage,
+                    "Ошибка подключения",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                await _host.StopAsync();
+                Shutdown();
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,
+                    "Ошибка в приложении",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                await _host.StopAsync();
+                Shutdown();
+                return;
+            }
+            
             base.OnStartup(e);
         }
 

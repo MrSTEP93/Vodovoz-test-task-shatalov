@@ -9,6 +9,7 @@ using System.Text;
 using Vodovoz.Data.Config;
 using Vodovoz.Data.Mappings;
 using Vodovoz.Data.Services;
+using Vodovoz.Domain.Exceptions;
 
 namespace Vodovoz.Data.Infrastructure
 {
@@ -29,11 +30,22 @@ namespace Vodovoz.Data.Infrastructure
         /// <param name="config">Конфигурация базы данных (строка подключения).</param>
         public SessionFactoryProvider(DatabaseConfig config)
         {
-            _sessionFactory = Fluently.Configure()
+
+            try
+            {
+                _sessionFactory = Fluently.Configure()
                 .Database(MySQLConfiguration.Standard.ConnectionString(config.ConnectionString))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<EmployeeMap>())
                 .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true))
                 .BuildSessionFactory();
+            }
+            catch (Exception ex)
+            {
+                throw new DBInitializationException(
+                    "Не удалось инициализировать подключение к базе данных. " +
+                    "Проверьте строку подключения и доступность сервера.",
+                    ex);
+            }
         }
 
         /// <inheritdoc/>
