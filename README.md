@@ -16,7 +16,7 @@
 </details>
 
 ## Стек
-C# / .NET 10, WPF, NHibernate (FluentNHibernate), MySQL, xUnit, MVVM, DI.
+C# / .NET 10, WPF, MVVM, NHibernate (FluentNHibernate), MySQL, DI, xUnit.
 
 ## Как запустить
 1. __База данных__: Установить MySQL и создать БД:
