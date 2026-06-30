@@ -24,7 +24,7 @@ C# / .NET 10, WPF, MVVM, NHibernate (FluentNHibernate), MySQL, DI, xUnit.
 CREATE DATABASE <имя_вашей_базы> CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-2. __Конфигурация__: Скопировать appsettings.json в appsettings.Local.json и прописать параметры подключения к БД.
+2. __Конфигурация__: Открыть appsettings.Local.json (добавлен в gitignore, копия appsettings.json) и прописать параметры подключения к БД.
 3. __Запуск__: Открыть решение в IDE и запустить Vododoz.UI. При первом старте будут созданы таблицы в БД.
 4. __Тест__: Запустить в Обозревателе тестов или выполнить dotnet test в корне решения.
 
